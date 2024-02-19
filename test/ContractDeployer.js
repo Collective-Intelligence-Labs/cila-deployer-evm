@@ -29,7 +29,14 @@ describe("ContractDeployer", function () {
       const deployTx = await contractDeployer.deployFromBytecode(contractDeployerBytecode);
       const receipt = await deployTx.wait();
 
-      console.log(receipt)
+
+        // Extract the address of the newly deployed contract from the event
+        const newContractAddressEvent = receipt.events.find(event => event.event === "ContractDeployed");
+        const newContractAddress = newContractAddressEvent.args.newContractAddress;
+
+        console.log("Newly deployed contract address:", newContractAddress);
+
+
     });
   });
 

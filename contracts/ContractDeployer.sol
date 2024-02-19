@@ -6,7 +6,13 @@ pragma solidity ^0.8.0;
  * @dev This contract allows deploying other contracts from its bytecode.
  */
 contract ContractDeployer {
- 
+    /**
+     * @dev Emitted when a new contract is deployed.
+     * @param deployer Address who deployed the contract.
+     * @param deployedContract Address of the deployed contract.
+     */
+    event ContractDeployed(address indexed deployer, address indexed deployedContract);
+
     /**
      * @notice Deploys a contract using its bytecode.
      * @param bytecode The bytecode of the contract to deploy.
@@ -24,5 +30,8 @@ contract ContractDeployer {
 
         // Verify that the contract deployment was successful
         require(newContract != address(0), "Contract deployment failed");
+
+        // Emit an event for the new contract deployment
+        emit ContractDeployed(msg.sender, newContract);
     }
 }
